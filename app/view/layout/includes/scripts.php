@@ -39,3 +39,6 @@
 
 <!-- Volt JS -->
 <script src="<?php echo _WEB_ROOT?>/app/view/assets/js/volt.js"></script>
+<script>
+onvalid="this.setCustomValidity('')"
+</script>

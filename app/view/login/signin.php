@@ -13,23 +13,40 @@
                                        href="#">Go App</a> - Sign IN
                                 </h1>
                                 <br />
-                                <p>
-                                  <?php 
-                                    echo (!empty($msg))?$msg:false;
-                                  ?>
+                                @if(!empty($msg))
+                                <p class="text-danger">
+                                    {{$msg}}
                                 </p> 
+                                @endif
+
+                                @if(!empty($success))
+                                <p class="text-success">
+                                    {{$success}}
+                                </p> 
+                                @endif
+
                             </div>
                             <!-- <form action="#" class="mt-4"> -->
-                            <?php HtmlHelper::formOpen('post',_WEB_ROOT.'/home/post_user','mt-4')?>
+                            <?php HtmlHelper::formOpen('post',_WEB_ROOT.'/user/get_user','mt-4');?>
 
                                 <!-- Form -->
                                 <div class="form-group mb-4">
-                                    <label for="email">Your Email</label>
+                                    <label for="text">User login</label>
                                     <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon1"><span class="fas fa-envelope"></span></span>
-                                        <!-- <input type="email" class="form-control" placeholder="example@company.com" id="email" autofocus required> -->
-                                        <?php HtmlHelper::input('email','form-control','email','example@company.com')?>
-                                    </div>  
+                                        <span class="input-group-text" id="basic-addon3"><span class="fas fa-user-shield"></span></span>
+                                        @if(!empty($old['user_login']))
+                                        <?php HtmlHelper::input('user_login','text','form-control','user_login','User name',old('username'));?>
+                                        @else
+                                        <?php HtmlHelper::input('user_login','text','form-control','user_login','User name',old('user_login'));?>
+                                        @endif
+                                    </div>
+                                    <div class="text-center">
+                                        @if(!empty($errors['user_login']))
+                                        <p class="text-danger">
+                                            {{$errors['user_login']}}
+                                        @endif
+                                    </div>
+                                   
                                 </div>
                                 <!-- End of Form -->
                                 <div class="form-group">
@@ -37,10 +54,16 @@
                                     <div class="form-group mb-4">
                                         <label for="password">Your Password</label>
                                         <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon2"><span class="fas fa-unlock-alt"></span></span>
-                                            <?php HtmlHelper::input('password','form-control','password','Password')?>
-
+                                            <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
+                                            <?php HtmlHelper::input('user_pass','password','form-control','user_pass','Password');?>
                                         </div>  
+                                        <div class="text-center">
+                                        @if(!empty($errors['user_pass']))
+                                        <p class="text-danger">
+                                                {{$errors['user_pass']}}
+                                        </p> 
+                                        @endif
+                                        </div>
                                     </div>
                                     <!-- End of Form -->
                                     <div class="d-flex justify-content-between align-items-top mb-4">
@@ -50,7 +73,7 @@
                                               Remember me
                                             </label>
                                         </div>
-                                        <div><a href="./forgot-password.html" class="small text-right">Lost password?</a></div>
+                                        <!-- <div><a href="./forgot-password.html" class="small text-right">Lost password?</a></div> -->
                                     </div>
                                 </div>
                                 <div class="d-grid">
@@ -64,7 +87,7 @@ HtmlHelper::formClose();
                             <div class="d-flex justify-content-center align-items-center mt-4">
                                 <span class="fw-normal">
                                     Not registered?
-                                    <a href="/sign-up.html" class="fw-bold">Create account</a>
+                                    <a href="./signup" class="fw-bold">Create account</a>
                                 </span>
                             </div>
                         </div>

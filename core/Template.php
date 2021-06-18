@@ -28,6 +28,7 @@ class Template {
         
         }
     }
+  
     public function printEntities(){
 
         preg_match_all('~{{\s*(.+?)\s*}}~is', $this->__content, $matches);

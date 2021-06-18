@@ -2,7 +2,6 @@
 class HtmlHelper{
     static function mainhtml($html){
         echo $html;
-        
     }
     static function formOpen($method='get', $action='', $class=''){
         echo '<form method="'.$method.'" action="'.$action.'" class = "'.$class.'">';
@@ -17,8 +16,8 @@ class HtmlHelper{
     //    echo '<input type="'.$type.'" name="'.$name.'" class="'.$class.'" id="'.$id.'" placeholder="'.$placeholder.'" value="'.$value.'"/>';
     //    echo $wrapAfter;
     // }
-    static function input($type='text', $class='', $id='', $placeholder='', $value=''){
-        echo '<input type="'.$type.'" class="'.$class.'" id="'.$id.'" placeholder="'.$placeholder.'" autoforcus required value="'.$value.'"/>';
+    static function input($name = '',$type='text', $class='', $id='', $placeholder='', $value=''){
+        echo '<input name="'.$name.'" type="'.$type.'" class="'.$class.'" id="'.$id.'" placeholder="'.$placeholder.'" autoforcus required value="'.$value.'"/>';
      }
     static function submit($label, $class=''){
         echo '<button type="submit" class="'.$class.'">'.$label.'</button>';

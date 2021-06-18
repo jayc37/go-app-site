@@ -13,7 +13,7 @@
                   <p class="mb-0">Management Catagories and Product of Page.</p>
               </div>
               <div>
-                  <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components/tables/" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Read The Document</a>
+                  <a href="https://github.com/jayc37/go-app-site#readme" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Read The Document</a>
               </div>
           </div>
       </div>

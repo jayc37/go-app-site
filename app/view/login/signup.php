@@ -10,70 +10,121 @@
                                        href="#">Flask Volt</a> - Sign UP
                                 </h1>
                                 <br />
-                                <p>
-                                  <?php 
-                                echo (!empty($msg))?$msg:false;
-                                  ?>
+                                <div class="text-center">
+                                @if(!empty($msg))
+                                <p class="text-danger">
+                                    {{$msg}}
                                 </p> 
+                                @endif
+                                </div>
                             </div>
 
-                            <form method="post" action="">
+                            <?php HtmlHelper::formOpen('post',_WEB_ROOT.'/user/post_user','mt-4');?>
                             
-                                {{ form.hidden_tag() }}
-
                                 <!-- Form -->
                                 <div class="form-group mb-4">
-                                    <label for="email">Username</label>
+                                    <label for="text">Your Nickname</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon3"><span class="fas fa-user-shield"></span></span>
-                                        {{ form.username(placeholder="Username", class="form-control") }}
+                                        <?php HtmlHelper::input("nickname","text",'form-control','nickname','Nick Name',old('nickname'));?>
+
                                     </div>  
                                 </div>
+                                <div class="form-group mb-4">
+                                    <label for="text">User Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon3"><span class="fas fa-user-shield"></span></span>
+                                        <?php HtmlHelper::input("username","username",'form-control','username','User Name',old('username'));?>
 
+                                    </div>  
+
+                                    <div class="text-center">
+                                    @if(!empty($errors['username']))
+                                        <p class="text-danger">
+                                            {{$errors['username']}}
+                                        @endif
+                                    </div>
+                                    
+                                </div>
                                 <!-- Form -->
                                 <div class="form-group mb-4">
                                     <label for="email">Your Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon3"><span class="fas fa-envelope"></span></span>
-                                        {{ form.email(placeholder="Email", class="input form-control", type="email") }}
+                                        <?php HtmlHelper::input('email','email','form-control','email','example@company.com',old('email'));?>
+                                        
                                     </div>  
+                                    <div class="text-center">
+                                    @if(!empty($errors['email']))
+                                        <p class="text-danger">
+                                            {{$errors['email']}}
+                                        @endif
+                                    </div>
+                                    
                                 </div>
                                 <!-- End of Form -->
 
                                 <!-- End of Form -->
                                 <div class="form-group">
-
                                     <!-- Form -->
                                     <div class="form-group mb-4">
                                         <label for="password">Your Password</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
-                                            {{ form.password(placeholder="Password", class="form-control", type="password") }}
+                                            <?php HtmlHelper::input('password','password','form-control','password','Password');?>
+                                        </div>
+
+                                        <div class="text-center">
+                                        @if(!empty($errors['password']))
+                                        <p class="text-danger">
+                                                {{$errors['password']}}
+                                            </p> 
+                                            @endif
                                         </div>  
+                                        
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="password">Repeat Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
+                                            <?php HtmlHelper::input('repeatpassword','password','form-control','repeatpassword','Repeat Password');?>
+                                        </div>  
+                                    <div class="text-center">
+                                    @if(!empty($errors['repeatpassword']))
+                                            <p class="text-danger">
+                                                {{$errors['repeatpassword']}}
+                                            </p> 
+                                            @endif
+                                    </div>
+                                    
+                                       
                                     </div>
                                     <!-- End of Form -->
 
                                     <div class="d-flex justify-content-between align-items-top mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="remember">
+                                            <input class="form-check-input" name="term" type="checkbox" value="" id="remember">
                                             <label class="form-check-label mb-0" for="remember">
                                               Agree Terms
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <a href="{{ url_for('base_blueprint.login') }}" class="small text-right">Login</a>
+                                            <a href="./login" class="small text-right">Login</a>
                                         </div>
                                     </div>                                  
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" name="register" class="btn btn-dark">Sign UP</button>
+                                <?php HtmlHelper::submit('Sign Up','btn btn-dark');?>
                                 </div>
-                            </form>
-
+                            <?
+                                HtmlHelper::formClose();
+                            
+                            ?>
                             <div class="d-flex justify-content-center align-items-center mt-4">
                                 <span class="font-weight-normal">
                                     &copy; <a  href="https://themesberg.com" target="_blank">Themesberg</a> 
-                                    - coded by <a target="_blank" href="https://appseed.us">AppSeed</a>
+                                    - coded by <a target="_blank" href="#">Go App</a>
                                 </span>
                             </div>
 

@@ -17,19 +17,6 @@ class Controller{
       }
       return false;
   }
-  // public function render($view, $data=[])
-  // // render dữ liệu từ model ra view
-  // {
-  //   extract($data);
-  //   if (file_exists(_DIR_ROOT.'/app/view/'.$view.'.php')) {
-  //     require_once _DIR_ROOT.'/app/view/'.$view.'.php';
-  //     if (class_exists($view)){
-  //         $view = new $view();
-  //         return $view;
-  //       } 
-  // }
-  // return false;
-  // }
   public function render($view, $data=[]){
     if (!empty(View::$dataShare)){
         $data = array_merge($data, View::$dataShare);

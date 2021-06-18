@@ -127,7 +127,11 @@
                     <img class="user-avatar md-avatar rounded-circle" alt="Image placeholder" src="<?php echo _WEB_ROOT?>/app/view/assets/img/team/profile-picture-3.jpg">
                     <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                       <span class="mb-0 font-small fw-bold">
-                        Current User: <strong>{{ current_user.username }}</strong>
+                        Current User: <strong><?php 
+                        // echo "<pre>";
+                        // var_dump($data['userInfo'][0]);
+                        // echo "</pre>";
+                        print($data['userInfo'][0]['user_nicename']); ?></strong>
                       </span>
                     </div>
                   </div>

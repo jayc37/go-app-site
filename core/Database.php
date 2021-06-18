@@ -10,9 +10,7 @@
 */
 class Database{
     private $__conn;
-
     use QueryBuilder;
-
     //ket noi database
     public function __construct() {
         // goi bien $db_config trong configs/database
@@ -40,10 +38,12 @@ class Database{
                 return true;
             }
         }
-
         return false;
     }
-
+    public function lastInsertId($field)
+    {
+        return $this->select('user_login,user_pass')->where('user_login','=',$field)->get();
+    }
     //updateData  
     function updateData($table, $data, $condition=''){
 
@@ -89,6 +89,27 @@ class Database{
         return false;
     }
 
+    public function selectColumn($table)
+    {
+        if(!empty($table)){
+            $column = $this->db->table_schema('INFORMATION_SCHEMA.COLUMNS')->select(
+                'COLUMN_NAME')->where('
+                TABLE_SCHEMA', '=', 'my_database')->where('
+                TABLE_NAME','=',$table)->get();
+            return $column;
+        }
+    }
+
+    public function joinDataField($column,$data)
+    {
+        // if(!empty($data)){
+        //     $row = [];
+        //    foreach ($data as $key => $value) {
+        //        if $
+        //        $row[$column] = $value;
+        //    }
+        // }
+    }
     //query
     public function query($sql){
         try{

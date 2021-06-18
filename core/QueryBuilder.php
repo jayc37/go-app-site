@@ -16,7 +16,6 @@
     13 delete(): $this -> db -> table(name) ->where(field, compare, value)->delete()
     14 first(): $this -> db -> first()
     15 resetquery(): $this -> db -> resetquery()
-
 */
 trait QueryBuilder{
 
@@ -31,6 +30,11 @@ trait QueryBuilder{
     public function table($tableName){
         ##
         $this->tableName = 'wp_'. $tableName;
+        return $this;
+    }
+    public function tableschema($tableName){
+        ##
+        $this->tableName = $tableName;
         return $this;
     }
 
@@ -126,8 +130,8 @@ trait QueryBuilder{
     }
 
     //LastId
-    public function lastId(){
-        return $this->lastInsertId();
+    public function lastId($field){
+        return $this->lastInsertId($field);
     }
 
     //Update

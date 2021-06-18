@@ -39,17 +39,14 @@ abstract class Model extends Database {
         $tableName = $this->tableFill();
         $fieldSelect = $this->fieldFill();
         $primaryKey = $this->primaryKey();
-
         if (empty($fieldSelect)){
             $fieldSelect = '*';
         }
-
         $sql = "SELECT $fieldSelect FROM $tableName WHERE $primaryKey=$id";
         $query = $this->db->query($sql);
         if (!empty($query)){
             return $query->fetch(PDO::FETCH_ASSOC);
         }
-
         return false;
 
     }

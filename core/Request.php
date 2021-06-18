@@ -1,13 +1,11 @@
 <?php
 class Request{
-
     private $__rules = [], $__messages = [], $__errors = [];
     public $db;
     /*
      * 1. Method
      * 2. Body
      * */
-
     function __construct(){
         $this->db = new Database();
     }
@@ -69,7 +67,6 @@ class Request{
     //set rules
     public function rules($rules=[]){
         $this->__rules = $rules;
-
     }
     //set message
     public function message($messages=[]){
@@ -139,12 +136,45 @@ class Request{
                         }
                     }
 
+                    if ($ruleName=='matchdb'){
+                        $tableName = null;
+                        $fieldCheck = null;
+                        if (!empty($rulesArr[1])){
+                            $tableName = 'wp_'.$rulesArr[1];
+                        }
+                        if (trim($dataFields[$fieldName])!=trim($dataFields[$ruleValue])){
+                            $this->setErrors($fieldName, $ruleName);
+                            $checkValidate = false;
+                        }
+                        if (!empty($rulesArr[2])){
+                            $fieldCheck = $rulesArr[2];
+                        }
+                        if (!empty($tableName) && !empty($fieldCheck)){
+
+                            if (count($rulesArr)==3){
+                                $checkExist = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck='$dataFields[$fieldName]'")->rowCount();
+                            }elseif (count($rulesArr)==4){
+
+                                if (!empty($rulesArr[3]) && preg_match('~.+?\=.+?~is', $rulesArr[3])){
+                                    $conditionWhere = $rulesArr[3];
+                                    $conditionWhere = str_replace('=', '<>', $conditionWhere);
+                                    $checkExist = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck=$dataFields[$fieldName] AND $conditionWhere")->rowCount();
+                                }
+                            }
+
+                            if (empty($checkExist)){
+                                $this->setErrors($fieldName, $ruleName);
+                                $checkValidate = false;
+                            }
+                        }
+                    }
+
                     if ($ruleName=='unique'){
                         $tableName = null;
                         $fieldCheck = null;
 
                         if (!empty($rulesArr[1])){
-                            $tableName = $rulesArr[1];
+                            $tableName = 'wp_'.$rulesArr[1];
                         }
 
                         if (!empty($rulesArr[2])){
@@ -154,13 +184,13 @@ class Request{
                         if (!empty($tableName) && !empty($fieldCheck)){
 
                             if (count($rulesArr)==3){
-                                $checkExist = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck='trim($dataFields[$fieldName])'")->rowCount();
+                                $checkExist = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck='$dataFields[$fieldName]'")->rowCount();
                             }elseif (count($rulesArr)==4){
 
                                 if (!empty($rulesArr[3]) && preg_match('~.+?\=.+?~is', $rulesArr[3])){
                                     $conditionWhere = $rulesArr[3];
                                     $conditionWhere = str_replace('=', '<>', $conditionWhere);
-                                    $checkExist = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck='trim($dataFields[$fieldName])' AND $conditionWhere")->rowCount();
+                                    $checkExist = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck=$dataFields[$fieldName] AND $conditionWhere")->rowCount();
                                 }
                             }
 
@@ -209,7 +239,6 @@ class Request{
                 }
                 return $errorsArr;
             }
-
             return reset($this->__errors[$fieldName]);
         }
 
